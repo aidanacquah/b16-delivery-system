@@ -219,18 +219,51 @@ double Graph::ShortestPath(int nodeIndex1, int nodeIndex2, int verbose=0) {
 
 // Implementation of Robot class
 
+/**
+  * @brief Constructor for Robot class.
+  * @param id The unique ID of the robot.
+  * @param carrying_capacity The maximum weight the robot can carry.
+  */
 Robot::Robot(int id, int carrying_capacity): _id(id), _carrying_capacity(carrying_capacity) {};
 
+/**
+  * @brief Getter for robot ID.
+  * @return The unique ID of the robot.
+  */
 int Robot::GetId() const { return _id; }
+
+/**
+  * @brief Getter for robot carrying capacity.
+  * @return The maximum weight the robot can carry.
+  */
 int Robot::GetCarryingCapacity() const { return _carrying_capacity; }
 
 // Implementation of Task class
 
+/**
+  * @brief Constructor for Task class.
+  * @param robot_id The ID of the robot that will perform the task.
+  * @param delivery_orders A vector of delivery orders, represented as pairs of house IDs and package weights.
+  */
 Task::Task(int robot_id, vector<pair<int, int>> delivery_orders): 
     _robot_id(robot_id), _delivery_orders(delivery_orders) {};
+
+/**
+ * @brief Getter for the robot ID associated with the task.
+ * @return The ID of the robot that will perform the task.
+ */
 int Task::GetRobotId() const { return _robot_id; }
+
+/**
+  * @brief Getter for the vector of delivery orders associated with the task.
+  * @return A vector of delivery orders, represented as pairs of house IDs and package weights.
+  */
 vector<pair<int,int>> Task::GetDeliveryOrders() const { return _delivery_orders; }
 
+/**
+  * @brief Display the shortest path for the robot to complete the delivery orders associated with the task.
+  * @param graph The graph representing the delivery area.
+  */
 void Task::DisplayPath(Graph graph) {
     string pkg_str = "packages";
     int prev_node;
@@ -259,7 +292,11 @@ void Task::DisplayPath(Graph graph) {
 }
 
 // Implementation of TaskQueue class
-
+/**
+  * @brief Constructor for TaskQueue class.
+  * @param orders A vector of delivery orders, represented as pairs of house IDs and package weights.
+  * @param robot The robot that will perform the delivery tasks in the queue.
+  */
 TaskQueue::TaskQueue(vector<pair<int, int>> orders, Robot robot) {
     vector<vector<pair<int,int>>> delivery_groups;
 
@@ -288,6 +325,10 @@ TaskQueue::TaskQueue(vector<pair<int, int>> orders, Robot robot) {
     }
 }
 
+/**
+  * @brief Perform all the tasks in the queue.
+  * @param graph The graph representing the delivery area.
+  */
 void TaskQueue::PerformTasks(Graph graph) {
     for (int i=0; i<_queue.size(); i++) {
         cout << "Task " << i+1 << ":" <<endl;
@@ -303,10 +344,10 @@ void TaskQueue::PerformTasks(Graph graph) {
  * connectivity and random seed. 
  * Here, the weights represent distance in km between nodes.
  *
- * @param size The number of nodes to include in the distance matrix
- * @param connectivity The probability of a random edge being created between two nodes
- * @param seed The seed to use for the random number generator
- * @return A 2D vector representing the distance matrix
+ * @param size The number of nodes to include in the distance matrix.
+ * @param connectivity The probability of a random edge being created between two nodes.
+ * @param seed The seed to use for the random number generator.
+ * @return A 2D vector representing the distance matrix.
  */
 vector<vector<double>> generate_dist_matrix(int size, double connectivity=0.0, int seed=0) {
     srand(seed);
@@ -342,9 +383,9 @@ vector<vector<double>> generate_dist_matrix(int size, double connectivity=0.0, i
  * This function overloads the << operator for vectors of any type.
  * It outputs the vector's elements to the given output stream.
  *
- * @param os The output stream to write to
- * @param v The vector to output
- * @return The output stream
+ * @param os The output stream to write to.
+ * @param v The vector to output.
+ * @return The output stream.
  */
 template <typename T>
 std::ostream & operator<<(std::ostream &os, vector<T> v) {
@@ -362,9 +403,9 @@ std::ostream & operator<<(std::ostream &os, vector<T> v) {
  * This function overloads the << operator for 2d vectors of doubles.
  * It outputs the vector's elements to the given output stream.
  *
- * @param os The output stream to write to
- * @param matrix The 2d vector to output
- * @return The output stream
+ * @param os The output stream to write to.
+ * @param matrix The 2d vector to output.
+ * @return The output stream.
  */
 std::ostream & operator<<(std::ostream &os, vector<vector<double>> matrix) {
     os << "Neighbourhood Distance Matrix:" << endl;
@@ -379,9 +420,9 @@ std::ostream & operator<<(std::ostream &os, vector<vector<double>> matrix) {
 }
 
 /**
- * @brief The main function of the program
+ * @brief The main function of the program.
  * 
- * @return 0 on successful execution
+ * @return 0 on successful execution.
  */
 int main ()
 {

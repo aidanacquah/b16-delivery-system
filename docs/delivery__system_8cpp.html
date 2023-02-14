@@ -81,11 +81,9 @@ $(function() {
 <p>Programme designed for a robot delivery system.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cstdio&gt;</code><br />
-<code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;limits&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;queue&gt;</code><br />
-<code>#include &quot;<a class="el" href="topological__map_8h_source.html">topological_map.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="task__queue_8h_source.html">task_queue.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -93,7 +91,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:acc155a6341a4303d2abf522f6eb784c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two nodes for equality based on their IDs.  <br /></td></tr>
 <tr class="separator:acc155a6341a4303d2abf522f6eb784c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94227b1608939125ad17c7e728101cb3"><td class="memItemLeft" align="right" valign="top">vector&lt; vector&lt; double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="delivery__system_8cpp.html#a94227b1608939125ad17c7e728101cb3">generate_dist_matrix</a> (int size, double connectivity=0.0, int seed=0)</td></tr>
-<tr class="memdesc:a94227b1608939125ad17c7e728101cb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a distance matrix based on the given parameters.  <br /></td></tr>
+<tr class="memdesc:a94227b1608939125ad17c7e728101cb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a weighted adjacency matrix based on the given parameters.  <br /></td></tr>
 <tr class="separator:a94227b1608939125ad17c7e728101cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab20312e623c2de551debd03f9bbaac9b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ab20312e623c2de551debd03f9bbaac9b"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="delivery__system_8cpp.html#ab20312e623c2de551debd03f9bbaac9b">operator&lt;&lt;</a> (std::ostream &amp;os, vector&lt; T &gt; v)</td></tr>
@@ -109,7 +107,7 @@ Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ac29df3dcbefa1ce189e5990bde994025"><td class="memItemLeft" align="right" valign="top"><a id="ac29df3dcbefa1ce189e5990bde994025" name="ac29df3dcbefa1ce189e5990bde994025"></a>
-const double&#160;</td><td class="memItemRight" valign="bottom"><b>epsilon</b> = 0.000001</td></tr>
+const double&#160;</td><td class="memItemRight" valign="bottom"><b>epsilon</b> = 1e-6</td></tr>
 <tr class="separator:ac29df3dcbefa1ce189e5990bde994025"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -147,17 +145,17 @@ const double&#160;</td><td class="memItemRight" valign="bottom"><b>epsilon</b> =
       </table>
 </div><div class="memdoc">
 
-<p>Generates a distance matrix based on the given parameters. </p>
-<p>This function generates a distance matrix based on the given size, connectivity and random seed.</p>
+<p>Generates a weighted adjacency matrix based on the given parameters. </p>
+<p>This function generates a weighted adjacency matrix based on the given size, connectivity and random seed. Here, the weights represent distance in km between nodes.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">size</td><td>The number of nodes to include in the distance matrix </td></tr>
-    <tr><td class="paramname">connectivity</td><td>The probability of a random edge being created between two nodes </td></tr>
-    <tr><td class="paramname">seed</td><td>The seed to use for the random number generator </td></tr>
+    <tr><td class="paramname">size</td><td>The number of nodes to include in the distance matrix. </td></tr>
+    <tr><td class="paramname">connectivity</td><td>The probability of a random edge being created between two nodes. </td></tr>
+    <tr><td class="paramname">seed</td><td>The seed to use for the random number generator. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A 2D vector representing the distance matrix </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A 2D vector representing the distance matrix. </dd></dl>
 
 </div>
 </div>
@@ -177,7 +175,7 @@ const double&#160;</td><td class="memItemRight" valign="bottom"><b>epsilon</b> =
 </div><div class="memdoc">
 
 <p>The main function of the program. </p>
-<dl class="section return"><dt>Returns</dt><dd>0 on successful execution </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on successful execution. </dd></dl>
 
 </div>
 </div>
@@ -213,12 +211,12 @@ template&lt;typename T &gt; </div>
 <p>This function overloads the &lt;&lt; operator for vectors of any type. It outputs the vector's elements to the given output stream.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">os</td><td>The output stream to write to </td></tr>
-    <tr><td class="paramname">v</td><td>The vector to output </td></tr>
+    <tr><td class="paramname">os</td><td>The output stream to write to. </td></tr>
+    <tr><td class="paramname">v</td><td>The vector to output. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The output stream </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The output stream. </dd></dl>
 
 </div>
 </div>
@@ -252,12 +250,12 @@ template&lt;typename T &gt; </div>
 <p>This function overloads the &lt;&lt; operator for 2d vectors of doubles. It outputs the vector's elements to the given output stream.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">os</td><td>The output stream to write to </td></tr>
-    <tr><td class="paramname">matrix</td><td>The 2d vector to output </td></tr>
+    <tr><td class="paramname">os</td><td>The output stream to write to. </td></tr>
+    <tr><td class="paramname">matrix</td><td>The 2d vector to output. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The output stream </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The output stream. </dd></dl>
 
 </div>
 </div>

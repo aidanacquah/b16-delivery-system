@@ -88,18 +88,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2fa2f9106ebbeaf703370bcef6bf7d80"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a2fa2f9106ebbeaf703370bcef6bf7d80">Graph</a> (vector&lt; vector&lt; double &gt; &gt; dist_matrix)</td></tr>
 <tr class="memdesc:a2fa2f9106ebbeaf703370bcef6bf7d80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a graph from a distance matrix.  <br /></td></tr>
 <tr class="separator:a2fa2f9106ebbeaf703370bcef6bf7d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f8008b107a49ba03c1b5cd95bdc4614"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a7f8008b107a49ba03c1b5cd95bdc4614">ShortestPath</a> (int nodeIndex1, int nodeIndex2, bool verbose)</td></tr>
-<tr class="memdesc:a7f8008b107a49ba03c1b5cd95bdc4614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the shortest path between two nodes using Dijkstra algorithm.  <br /></td></tr>
-<tr class="separator:a7f8008b107a49ba03c1b5cd95bdc4614"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae83a021d8a1cd902787b8e310ff5781a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ae83a021d8a1cd902787b8e310ff5781a">ShortestPath</a> (int nodeIndex1, int nodeIndex2, int verbose)</td></tr>
+<tr class="memdesc:ae83a021d8a1cd902787b8e310ff5781a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the shortest path between two nodes using Dijkstra algorithm.  <br /></td></tr>
+<tr class="separator:ae83a021d8a1cd902787b8e310ff5781a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e1d939a85689e773c8cc1bea8646371"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a1e1d939a85689e773c8cc1bea8646371">UpdateOrders</a> (int seed)</td></tr>
 <tr class="memdesc:a1e1d939a85689e773c8cc1bea8646371"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the number of orders for each node in the graph randomly.  <br /></td></tr>
 <tr class="separator:a1e1d939a85689e773c8cc1bea8646371"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3634659b3c60e5ac1228b4c8d33fce6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ab3634659b3c60e5ac1228b4c8d33fce6">NumNodes</a> ()</td></tr>
 <tr class="memdesc:ab3634659b3c60e5ac1228b4c8d33fce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of nodes in the graph.  <br /></td></tr>
 <tr class="separator:ab3634659b3c60e5ac1228b4c8d33fce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae204b6c966586d1752fa85f993392c61"><td class="memItemLeft" align="right" valign="top">vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ae204b6c966586d1752fa85f993392c61">GetOrderList</a> ()</td></tr>
-<tr class="memdesc:ae204b6c966586d1752fa85f993392c61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of the number of orders for each node in the graph.  <br /></td></tr>
-<tr class="separator:ae204b6c966586d1752fa85f993392c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d9c90e094686b3e561a70b6f6401280"><td class="memItemLeft" align="right" valign="top">vector&lt; pair&lt; int, int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a6d9c90e094686b3e561a70b6f6401280">GetOrderList</a> ()</td></tr>
+<tr class="memdesc:a6d9c90e094686b3e561a70b6f6401280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of pairs of node ids and number of orders for each node in the graph.  <br /></td></tr>
+<tr class="separator:a6d9c90e094686b3e561a70b6f6401280"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A graph represents the entire map. </p>
@@ -137,14 +137,14 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae204b6c966586d1752fa85f993392c61" name="ae204b6c966586d1752fa85f993392c61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae204b6c966586d1752fa85f993392c61">&#9670;&#160;</a></span>GetOrderList()</h2>
+<a id="a6d9c90e094686b3e561a70b6f6401280" name="a6d9c90e094686b3e561a70b6f6401280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d9c90e094686b3e561a70b6f6401280">&#9670;&#160;</a></span>GetOrderList()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; int &gt; Graph::GetOrderList </td>
+          <td class="memname">vector&lt; pair&lt; int, int &gt; &gt; Graph::GetOrderList </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -152,9 +152,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a list of the number of orders for each node in the graph. </p>
-<p>Returns a vector of the number of orders for each node in the graph.</p>
-<dl class="section return"><dt>Returns</dt><dd>A vector of the number of orders for each node in the graph. </dd></dl>
+<p>Returns a list of pairs of node ids and number of orders for each node in the graph. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of node id and order count pairs. </dd></dl>
 
 </div>
 </div>
@@ -178,8 +177,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a7f8008b107a49ba03c1b5cd95bdc4614" name="a7f8008b107a49ba03c1b5cd95bdc4614"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f8008b107a49ba03c1b5cd95bdc4614">&#9670;&#160;</a></span>ShortestPath()</h2>
+<a id="ae83a021d8a1cd902787b8e310ff5781a" name="ae83a021d8a1cd902787b8e310ff5781a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae83a021d8a1cd902787b8e310ff5781a">&#9670;&#160;</a></span>ShortestPath()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,8 +198,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>verbose</em> = <code>false</code>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>verbose</em> = <code>0</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -215,7 +214,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">nodeIndex1</td><td>The index of the first node. </td></tr>
     <tr><td class="paramname">nodeIndex2</td><td>The index of the second node. </td></tr>
-    <tr><td class="paramname">verbose</td><td>If true, prints the path to the console.</td></tr>
+    <tr><td class="paramname">verbose</td><td>Determines the display to console of path information.</td></tr>
   </table>
   </dd>
 </dl>
@@ -223,7 +222,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">nodeIndex1</td><td>Index of the first node. </td></tr>
     <tr><td class="paramname">nodeIndex2</td><td>Index of the second node. </td></tr>
-    <tr><td class="paramname">verbose</td><td>If true, prints the path to the console. </td></tr>
+    <tr><td class="paramname">verbose</td><td>If 1, prints just the path to console. If &gt;1, prints the path and distance to the console. Else, no output to console. </td></tr>
   </table>
   </dd>
 </dl>
