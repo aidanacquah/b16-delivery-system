@@ -13,7 +13,7 @@ public:
     Node(int id);
 
     /// Returns the ID of the node.
-    int GetId();
+    int GetId() const;
 
     /// Adds an edge to the node.
     /// \param node The node to connect to.
@@ -62,8 +62,8 @@ public:
     /// Returns the number of nodes in the graph.
     int NumNodes();
 
-    /// Returns a list of the number of orders for each node in the graph.
-    vector<int> GetOrderList();
+    /// Returns a list of pairs of node ids and number of orders for each node in the graph.
+    vector<pair<int, int>> GetOrderList();
 
 private:
     /// A list of nodes in the graph.

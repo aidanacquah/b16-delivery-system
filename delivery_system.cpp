@@ -4,11 +4,9 @@
  */
 
 #include <cstdio>
-#include <iostream>
 #include <limits>
 #include <algorithm>
-#include <queue>
-#include "topological_map.h"
+#include "task_queue.h"
 
 using namespace std;
 
@@ -23,7 +21,7 @@ Node::Node(int id): _id(id) {};
  *
  * @return The ID of the current node.
  */
-int Node::GetId() { return _id; }
+int Node::GetId() const { return _id; }
 
 /**
  * @brief Adds an edge from the current node to another node with a given distance.
@@ -122,19 +120,16 @@ void Graph::UpdateOrders(int seed) {
 }
 
 /**
- * @brief Returns a vector of the number of orders for each node in the graph.
+ * @brief Returns a list of pairs of node ids and number of orders for each node in the graph.
  *
- * @return A vector of the number of orders for each node in the graph.
+ * @return A vector of node id and order count pairs.
  */
-vector<int> Graph::GetOrderList() {
-    vector<int> orders;
-
-    // Exclude the first node that is the store
-    for (int i=1; i<NumNodes(); i++) {
-        orders.push_back(_nodes[i].GetNumOrders());
-    } 
-
-    return orders;
+vector<pair<int, int>> Graph::GetOrderList() {
+    vector<pair<int, int>> order_list;
+    for (const auto& node : _nodes) {
+        order_list.emplace_back(node.GetId(), node.GetNumOrders());
+    }
+    return order_list;
 }
 
 /**
@@ -199,7 +194,8 @@ double Graph::ShortestPath(int nodeIndex1, int nodeIndex2, bool verbose=false) {
     reverse(path.begin(), path.end()); // Reverse the order of the nodes in the path
 
     if (verbose) {
-        // Print the nodes in the shortest path
+        cout << "The shortest path between nodes " << nodeIndex1 << " and " << nodeIndex2 << ":" << endl;
+
         for (int i = 0; i < path.size(); i++) {
             cout << path[i];
 
@@ -207,17 +203,87 @@ double Graph::ShortestPath(int nodeIndex1, int nodeIndex2, bool verbose=false) {
                 cout << " -> ";
             }
         }
-        cout << endl;
+
+        cout << "\nPath distance: " << dist[nodeIndex2] << endl;
     }
 
     // Return the shortest distance between the input nodes
     return dist[nodeIndex2];
 }
 
+// Implementation of Robot class
+
+Robot::Robot(int id, int carrying_capacity): _id(id), _carrying_capacity(carrying_capacity) {};
+
+int Robot::GetId() const { return _id; }
+int Robot::GetCarryingCapacity() const { return _carrying_capacity; }
+
+// Implementation of Task class
+
+Task::Task(int robot_id, vector<pair<int, int>> delivery_orders): 
+    _robot_id(robot_id), _delivery_orders(delivery_orders) {};
+int Task::GetRobotId() const { return _robot_id; }
+vector<pair<int,int>> Task::GetDeliveryOrders() const { return _delivery_orders; }
+
+
+std::ostream & operator<<(std::ostream &os, Task task) {
+    string pkg_str = "packages"; 
+    for (auto& order : task.GetDeliveryOrders()) {
+        if (order.second == 1) {
+            pkg_str = "package";
+        }
+        else {
+            pkg_str = "packages";
+        }
+        os << "Robot " << task.GetRobotId() << " delivers " << order.second 
+        << " " << pkg_str << " to house " << order.first << endl;
+    }
+    return os;
+}
+
+// Implementation of TaskQueue class
+
+TaskQueue::TaskQueue(vector<pair<int, int>> orders, Robot robot) {
+    vector<vector<pair<int,int>>> delivery_groups;
+
+    // Split orders into delivery groups that do not exceed robot's carrying capacity
+    vector<pair<int,int>> group;
+    int total_weight = 0;
+    for (pair<int,int> order : orders) {
+        if (order.second != 0) {
+            if (total_weight + order.second > robot.GetCarryingCapacity()) {
+                delivery_groups.push_back(group);
+                group.clear();
+                total_weight = 0;
+            }
+            group.push_back(order);
+            total_weight += order.second;
+        }
+    }
+    if (!group.empty()) {
+        delivery_groups.push_back(group);
+    }
+
+    // Create a task for each delivery group
+    for (const auto& group : delivery_groups) {
+        Task task(robot.GetId(), group);
+        _queue.push_back(task);
+    }
+}
+
+void TaskQueue::PerformTasks(Graph graph) {
+    for (int i=0; i<_queue.size(); i++) {
+        cout << "Task " << i+1 << ":\n" << _queue[i];
+    }
+    _queue.clear();
+}
+
 /**
- * @brief Generates a distance matrix based on the given parameters.
+ * @brief Generates a weighted adjacency matrix based on the given parameters.
  *
- * This function generates a distance matrix based on the given size, connectivity and random seed.
+ * This function generates a weighted adjacency matrix based on the given size, 
+ * connectivity and random seed. 
+ * Here, the weights represent distance in km between nodes.
  *
  * @param size The number of nodes to include in the distance matrix
  * @param connectivity The probability of a random edge being created between two nodes
@@ -264,8 +330,8 @@ vector<vector<double>> generate_dist_matrix(int size, double connectivity=0.0, i
  */
 template <typename T>
 std::ostream & operator<<(std::ostream &os, vector<T> v) {
-    for (int j=0; j<v.size(); j++) {
-        os << v[j] << " ";
+    for (int i=0; i<v.size(); i++) {
+        os << v[i] << " ";
     }
     os << endl;
 
@@ -283,7 +349,7 @@ std::ostream & operator<<(std::ostream &os, vector<T> v) {
  * @return The output stream
  */
 std::ostream & operator<<(std::ostream &os, vector<vector<double>> matrix) {
-    os << "Matrix:" << endl;
+    os << "Neighbourhood Distance Matrix:" << endl;
     for (int i=0; i<matrix.size(); i++) {
         for (int j=0; j<matrix.size(); j++) {
             printf(" %.2f ", matrix[i][j]);
@@ -303,13 +369,23 @@ int main ()
 {
     const int num_nodes = 11; // 10 houses + 1 store
     const double connectivity = 0.1;
+    const int num_days = 4;
+    const Robot robot(1001, 3);
+
     vector<vector<double>> dist_mat = generate_dist_matrix(num_nodes, connectivity, 0);
     cout << dist_mat;
+
     Graph graph(dist_mat);
 
+    // Example path
     double u = graph.ShortestPath(1, 2, true);
 
-    cout << "Path distance: " << u;
+    for (int i=1; i<num_days+1; i++) {
+        cout << "Day " << i << ":" << endl;
+        graph.UpdateOrders(i);
+        TaskQueue taskQueue(graph.GetOrderList(), robot);
+        taskQueue.PerformTasks(graph);
+    }
 
     return 0;
 }
