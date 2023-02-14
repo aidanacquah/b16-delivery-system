@@ -8,3 +8,4 @@ More information on this can be found [here](https://github.com/doxygen/doxygen)
 
 The logo used was produced by [DALL·E mini by craiyon.com](https://www.craiyon.com/).
 
+Some parts of this code have been generated or inspired by ChatGPT, which is available [here](https://chat.openai.com/).
