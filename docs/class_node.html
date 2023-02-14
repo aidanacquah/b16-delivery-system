@@ -77,21 +77,179 @@ $(function() {
   <div class="headertitle"><div class="title">Node Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>A node represents a point in the map.  
+ <a href="class_node.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="topological__map_8h_source.html">topological_map.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad628e0879f87956169dbeffa04a07017"><td class="memItemLeft" align="right" valign="top"><a id="ad628e0879f87956169dbeffa04a07017" name="ad628e0879f87956169dbeffa04a07017"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Node</b> (vector&lt; pair&lt; <a class="el" href="class_node.html">Node</a> *, double &gt; &gt; edges)</td></tr>
-<tr class="separator:ad628e0879f87956169dbeffa04a07017"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cd35c10a76d380f43cb28b93c38e32f"><td class="memItemLeft" align="right" valign="top"><a id="a8cd35c10a76d380f43cb28b93c38e32f" name="a8cd35c10a76d380f43cb28b93c38e32f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetOrder</b> (int order)</td></tr>
-<tr class="separator:a8cd35c10a76d380f43cb28b93c38e32f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25ef29291b691452d4319a542ad91595"><td class="memItemLeft" align="right" valign="top"><a id="a25ef29291b691452d4319a542ad91595" name="a25ef29291b691452d4319a542ad91595"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>GetOrder</b> ()</td></tr>
-<tr class="separator:a25ef29291b691452d4319a542ad91595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f1af54cb91467d9717155c8a2ac0fde"><td class="memItemLeft" align="right" valign="top"><a id="a7f1af54cb91467d9717155c8a2ac0fde" name="a7f1af54cb91467d9717155c8a2ac0fde"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Node</b> (int id)</td></tr>
+<tr class="memdesc:a7f1af54cb91467d9717155c8a2ac0fde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
+<tr class="separator:a7f1af54cb91467d9717155c8a2ac0fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae90214a3ccf4ead8527329bbe238570c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_node.html#ae90214a3ccf4ead8527329bbe238570c">GetId</a> ()</td></tr>
+<tr class="memdesc:ae90214a3ccf4ead8527329bbe238570c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ID of the node.  <br /></td></tr>
+<tr class="separator:ae90214a3ccf4ead8527329bbe238570c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e5f4b4ddf4b8bc99f813195fe890431"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_node.html#a1e5f4b4ddf4b8bc99f813195fe890431">AddEdge</a> (<a class="el" href="class_node.html">Node</a> node, double distance)</td></tr>
+<tr class="memdesc:a1e5f4b4ddf4b8bc99f813195fe890431"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an edge from the current node to another node with a given distance.  <br /></td></tr>
+<tr class="separator:a1e5f4b4ddf4b8bc99f813195fe890431"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a532b9587b383033585112b07f6251be2"><td class="memItemLeft" align="right" valign="top">vector&lt; pair&lt; <a class="el" href="class_node.html">Node</a>, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_node.html#a532b9587b383033585112b07f6251be2">GetEdges</a> ()</td></tr>
+<tr class="memdesc:a532b9587b383033585112b07f6251be2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of edges connected to the node.  <br /></td></tr>
+<tr class="separator:a532b9587b383033585112b07f6251be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14fb42f2487dce201b725b5189204dbb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_node.html#a14fb42f2487dce201b725b5189204dbb">SetNumOrders</a> (int orders)</td></tr>
+<tr class="memdesc:a14fb42f2487dce201b725b5189204dbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the number of orders for the current node.  <br /></td></tr>
+<tr class="separator:a14fb42f2487dce201b725b5189204dbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cab03d1662b5fbdd1c25862330981cd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_node.html#a1cab03d1662b5fbdd1c25862330981cd">GetNumOrders</a> () const</td></tr>
+<tr class="memdesc:a1cab03d1662b5fbdd1c25862330981cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of orders assigned to the node.  <br /></td></tr>
+<tr class="separator:a1cab03d1662b5fbdd1c25862330981cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A node represents a point in the map. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1e5f4b4ddf4b8bc99f813195fe890431" name="a1e5f4b4ddf4b8bc99f813195fe890431"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e5f4b4ddf4b8bc99f813195fe890431">&#9670;&#160;</a></span>AddEdge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::AddEdge </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_node.html">Node</a>&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>distance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds an edge from the current node to another node with a given distance. </p>
+<p>Adds an edge to the node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>The node to connect to. </td></tr>
+    <tr><td class="paramname">distance</td><td>The distance to the connected node.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>The node to add an edge to. </td></tr>
+    <tr><td class="paramname">distance</td><td>The distance of the edge. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a532b9587b383033585112b07f6251be2" name="a532b9587b383033585112b07f6251be2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a532b9587b383033585112b07f6251be2">&#9670;&#160;</a></span>GetEdges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; pair&lt; <a class="el" href="class_node.html">Node</a>, double &gt; &gt; Node::GetEdges </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a list of edges connected to the node. </p>
+<p>Returns a vector of pairs, where each pair represents an edge from the current node to another node and its distance.</p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of pairs representing the edges of the current node. </dd></dl>
+
+</div>
+</div>
+<a id="ae90214a3ccf4ead8527329bbe238570c" name="ae90214a3ccf4ead8527329bbe238570c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae90214a3ccf4ead8527329bbe238570c">&#9670;&#160;</a></span>GetId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Node::GetId </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the ID of the node. </p>
+<p>Returns the ID of the current node.</p>
+<dl class="section return"><dt>Returns</dt><dd>The ID of the current node. </dd></dl>
+
+</div>
+</div>
+<a id="a1cab03d1662b5fbdd1c25862330981cd" name="a1cab03d1662b5fbdd1c25862330981cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cab03d1662b5fbdd1c25862330981cd">&#9670;&#160;</a></span>GetNumOrders()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Node::GetNumOrders </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the number of orders assigned to the node. </p>
+<p>Returns the number of orders for the current node.</p>
+<dl class="section return"><dt>Returns</dt><dd>The number of orders for the current node. </dd></dl>
+
+</div>
+</div>
+<a id="a14fb42f2487dce201b725b5189204dbb" name="a14fb42f2487dce201b725b5189204dbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14fb42f2487dce201b725b5189204dbb">&#9670;&#160;</a></span>SetNumOrders()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::SetNumOrders </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>orders</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the number of orders for the current node. </p>
+<p>Sets the number of orders assigned to the node. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">orders</td><td>The number of orders assigned to the node.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">orders</td><td>The number of orders to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="topological__map_8h_source.html">topological_map.h</a></li>
+<li><a class="el" href="delivery__system_8cpp.html">delivery_system.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
