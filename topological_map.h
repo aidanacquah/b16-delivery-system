@@ -5,21 +5,29 @@ using namespace std;
 // A node represents a point in the map
 class Node {
     public:
-        Node(vector<pair<Node *, double>> edges): _edges(edges) {};
-        void SetOrder(int order);
-        int GetOrder();
+        Node(int id);
+        int GetId();
+        void AddEdge(Node node, double distance);
+        vector<pair<Node, double>> GetEdges();
+        void SetNumOrders(int orders);
+        int GetNumOrders() const;
+
     private:
-        const vector<pair<Node *, double>> _edges;
-        int _order=0;
+        vector<pair<Node, double>> _edges;
+        int _num_orders=0;
+        int _id;
 };
+
 
 // A graph represents the entire map
 class Graph {
     public:
-        Graph(int num_nodes, vector<vector<int>> adj_matrix);
-        void DisplayPath();
-        void UpdateOrders();
+        Graph(vector<vector<double>> dist_matrix);
+        double ShortestPath(int nodeIndex1, int nodeIndex2, bool verbose);
+        void UpdateOrders(int seed);
+        int NumNodes();
+        vector<int> GetOrderList();
 
     private:
-        const vector<Node> _nodes;
+        vector<Node> _nodes;
 };
