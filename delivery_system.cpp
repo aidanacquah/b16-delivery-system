@@ -11,7 +11,7 @@
 using namespace std;
 
 // Global parameters
-const double epsilon = 0.000001;
+const double epsilon = 1e-6;
 
 // Implementation of Node class
 Node::Node(int id): _id(id) {};
@@ -137,10 +137,12 @@ vector<pair<int, int>> Graph::GetOrderList() {
  *
  * @param nodeIndex1 Index of the first node.
  * @param nodeIndex2 Index of the second node.
- * @param verbose If true, prints the path to the console.
+ * @param verbose If 1, prints just the path to console.
+ *                If >1, prints the path and distance to the console.
+ *                Else, no output to console.
  * @return A double, representing the shortest distance between the nodes.
  */
-double Graph::ShortestPath(int nodeIndex1, int nodeIndex2, bool verbose=false) {
+double Graph::ShortestPath(int nodeIndex1, int nodeIndex2, int verbose=0) {
     const double infinity = numeric_limits<double>::infinity();
     vector<double> dist(NumNodes(), infinity);
     vector<int> prev(NumNodes(), -1);
@@ -193,8 +195,11 @@ double Graph::ShortestPath(int nodeIndex1, int nodeIndex2, bool verbose=false) {
     }
     reverse(path.begin(), path.end()); // Reverse the order of the nodes in the path
 
-    if (verbose) {
-        cout << "The shortest path between nodes " << nodeIndex1 << " and " << nodeIndex2 << ":" << endl;
+    if (verbose > 0) {
+        if (verbose > 1) {
+            cout << "The shortest path between nodes " << nodeIndex1 << " and "
+                << nodeIndex2 << ":" << endl;
+        }
 
         for (int i = 0; i < path.size(); i++) {
             cout << path[i];
@@ -203,8 +208,9 @@ double Graph::ShortestPath(int nodeIndex1, int nodeIndex2, bool verbose=false) {
                 cout << " -> ";
             }
         }
-
-        cout << "\nPath distance: " << dist[nodeIndex2] << endl;
+        if (verbose > 1) {
+            cout << "\nPath distance: " << dist[nodeIndex2] << endl;
+        }
     }
 
     // Return the shortest distance between the input nodes
@@ -225,20 +231,31 @@ Task::Task(int robot_id, vector<pair<int, int>> delivery_orders):
 int Task::GetRobotId() const { return _robot_id; }
 vector<pair<int,int>> Task::GetDeliveryOrders() const { return _delivery_orders; }
 
-
-std::ostream & operator<<(std::ostream &os, Task task) {
-    string pkg_str = "packages"; 
-    for (auto& order : task.GetDeliveryOrders()) {
-        if (order.second == 1) {
+void Task::DisplayPath(Graph graph) {
+    string pkg_str = "packages";
+    int prev_node;
+    vector<pair<int,int>> orders = GetDeliveryOrders();
+    for (int i=0; i < orders.size(); i++) {
+        if (orders[i].second == 1) {
             pkg_str = "package";
         }
         else {
             pkg_str = "packages";
         }
-        os << "Robot " << task.GetRobotId() << " delivers " << order.second 
-        << " " << pkg_str << " to house " << order.first << endl;
+
+        if (i==0) {
+            prev_node = 0;
+        }
+        else {
+            prev_node = orders[i-1].first;
+        }
+
+        cout << "Robot " << GetRobotId() << " delivers " << orders[i].second 
+            << " " << pkg_str << " to house " << orders[i].first << ", via: ";
+
+        graph.ShortestPath(prev_node, orders[i].first, 1);
+        cout << endl;
     }
-    return os;
 }
 
 // Implementation of TaskQueue class
@@ -273,7 +290,8 @@ TaskQueue::TaskQueue(vector<pair<int, int>> orders, Robot robot) {
 
 void TaskQueue::PerformTasks(Graph graph) {
     for (int i=0; i<_queue.size(); i++) {
-        cout << "Task " << i+1 << ":\n" << _queue[i];
+        cout << "Task " << i+1 << ":" <<endl;
+        _queue[i].DisplayPath(graph);
     }
     _queue.clear();
 }
@@ -307,7 +325,7 @@ vector<vector<double>> generate_dist_matrix(int size, double connectivity=0.0, i
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             p = (float)rand()/RAND_MAX;
-            if ((p < connectivity) & (i != j)) {
+            if ((p < connectivity) && (i != j)) {
                 dist = (float)rand()/RAND_MAX;
                 matrix[i][j] = dist;
                 matrix[j][i] = dist;
@@ -370,7 +388,7 @@ int main ()
     const int num_nodes = 11; // 10 houses + 1 store
     const double connectivity = 0.1;
     const int num_days = 4;
-    const Robot robot(1001, 3);
+    const Robot robot(101, 3);
 
     vector<vector<double>> dist_mat = generate_dist_matrix(num_nodes, connectivity, 0);
     cout << dist_mat;
@@ -378,7 +396,7 @@ int main ()
     Graph graph(dist_mat);
 
     // Example path
-    double u = graph.ShortestPath(1, 2, true);
+    double u = graph.ShortestPath(1, 2, 2);
 
     for (int i=1; i<num_days+1; i++) {
         cout << "Day " << i << ":" << endl;

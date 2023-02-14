@@ -52,8 +52,8 @@ public:
     /// Computes the shortest path between two nodes using Dijkstra algorithm.
     /// \param nodeIndex1 The index of the first node.
     /// \param nodeIndex2 The index of the second node.
-    /// \param verbose If true, prints the path to the console.
-    double ShortestPath(int nodeIndex1, int nodeIndex2, bool verbose);
+    /// \param verbose Determines the display to console of path information.
+    double ShortestPath(int nodeIndex1, int nodeIndex2, int verbose);
 
     /// Updates the number of orders assigned to each node.
     /// \param seed A random seed to use for generating the number of orders.
