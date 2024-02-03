@@ -58,9 +58,9 @@ This should generally be done using the following steps:
 
 **c)** Can you try to address once of these improvements, push your changes and submit a pull request to the main repository?
 
-After making the changes to the code, this needs to be saved in the remote github repository. We can do this either using Visual Studio codes Source Control, or using command line git bash.
+After making the changes to the code, this needs to be saved in the remote github repository. We can do this either using Visual Studio Code's Source Control, or using command line git bash/terminal.
 
-Using command line:
+Using command line/terminal:
 
   1. Save all files with changes made.
   1. Stage the changes made. Run: <pre>git add {name_of_file}</pre> for each `{name_of_file}` that has been changed.
