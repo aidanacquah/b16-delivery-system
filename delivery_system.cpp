@@ -6,6 +6,7 @@
 #include <cstdio>
 #include <limits>
 #include <algorithm>
+#include <string>
 #include "task_queue.h"
 
 using namespace std;
@@ -67,7 +68,6 @@ bool operator==(Node &lhs, Node &rhs) {
 	return lhs.GetId() == rhs.GetId();
 }
 
-
 // Implementation of Graph class
 
 /**
@@ -94,6 +94,18 @@ Graph::Graph(vector<vector<double>> dist_matrix) {
     }
 
     _nodes = nodes;
+
+    // Initialise shortest distance string cache
+    _shortest_paths.resize(num_nodes);
+    _shortest_paths_dist.resize(num_nodes);
+    for (int i = 0; i < num_nodes; i++) {
+        _shortest_paths[i].resize(num_nodes);
+        _shortest_paths_dist[i].resize(num_nodes);
+        for (int j = 0; j < num_nodes; j++) {
+            _shortest_paths[i][j] = "";
+            _shortest_paths_dist[i][j] = -1;
+        }
+    }
 }
 
 /**
@@ -132,6 +144,10 @@ vector<pair<int, int>> Graph::GetOrderList() {
     return order_list;
 }
 
+string GetShortestPathString(int nodeAId, int nodeBId) {
+    return "None";
+}
+
 /**
  * @brief Computes the shortest path between two nodes using Dijkstra algorithm.
  *
@@ -146,6 +162,25 @@ double Graph::ShortestPath(int nodeIndex1, int nodeIndex2, int verbose=0) {
     const double infinity = numeric_limits<double>::infinity();
     vector<double> dist(NumNodes(), infinity);
     vector<int> prev(NumNodes(), -1);
+
+    // Check if a shortest path is already known
+    if (_shortest_paths_dist[nodeIndex1][nodeIndex2] != -1) {
+        if (verbose > 0) {
+            if (verbose > 1) {
+                cout << "The shortest path between nodes " << nodeIndex1 << " and "
+                    << nodeIndex2 << ":" << endl;
+            }
+
+            cout << _shortest_paths[nodeIndex1][nodeIndex2];
+            
+            if (verbose > 1) {
+                cout << "\nPath distance: " << _shortest_paths_dist[nodeIndex1][nodeIndex2] << endl;
+            }
+        }
+        // Return the shortest distance between the input nodes
+        return _shortest_paths_dist[nodeIndex1][nodeIndex2];
+    }
+    // If it isn't, proceed with finding a path
 
     // Set the distance of the start node to 0
     dist[nodeIndex1] = 0;
@@ -193,7 +228,31 @@ double Graph::ShortestPath(int nodeIndex1, int nodeIndex2, int verbose=0) {
         path.push_back(u);
         u = prev[u];
     }
+    // Save the reverse path (Shortest from 1->5 is shortest from 5->1 in this case, no one-way edges)
+    string reversePathString = "";
+    string forwardPathString = "";
+
+    for (int i = 0; i < path.size(); i++) {
+        reversePathString.append(to_string(path[i]));
+        if (i < path.size() - 1) {
+            reversePathString.append(" -> ");
+        }
+    }
+
+    _shortest_paths[nodeIndex2][nodeIndex1].assign(reversePathString);
+    _shortest_paths_dist[nodeIndex2][nodeIndex1] = dist[nodeIndex2];
+
     reverse(path.begin(), path.end()); // Reverse the order of the nodes in the path
+
+    for (int i = 0; i < path.size(); i++) {
+        forwardPathString.append(to_string(path[i]));
+        if (i < path.size() - 1) {
+            forwardPathString.append(" -> ");
+        }
+    }
+
+    _shortest_paths[nodeIndex1][nodeIndex2].assign(forwardPathString);
+    _shortest_paths_dist[nodeIndex1][nodeIndex2] = dist[nodeIndex2];
 
     if (verbose > 0) {
         if (verbose > 1) {
@@ -201,13 +260,8 @@ double Graph::ShortestPath(int nodeIndex1, int nodeIndex2, int verbose=0) {
                 << nodeIndex2 << ":" << endl;
         }
 
-        for (int i = 0; i < path.size(); i++) {
-            cout << path[i];
+        cout << forwardPathString;
 
-            if (i < path.size() - 1) {
-                cout << " -> ";
-            }
-        }
         if (verbose > 1) {
             cout << "\nPath distance: " << dist[nodeIndex2] << endl;
         }
@@ -264,7 +318,7 @@ vector<pair<int,int>> Task::GetDeliveryOrders() const { return _delivery_orders;
   * @brief Display the shortest path for the robot to complete the delivery orders associated with the task.
   * @param graph The graph representing the delivery area.
   */
-void Task::DisplayPath(Graph graph) {
+void Task::DisplayPath(Graph *graph) {
     string pkg_str = "packages";
     int prev_node;
     vector<pair<int,int>> orders = GetDeliveryOrders();
@@ -286,7 +340,7 @@ void Task::DisplayPath(Graph graph) {
         cout << "Robot " << GetRobotId() << " delivers " << orders[i].second 
             << " " << pkg_str << " to house " << orders[i].first << ", via: ";
 
-        graph.ShortestPath(prev_node, orders[i].first, 1);
+        (void)graph->ShortestPath(prev_node, orders[i].first, 1);
         cout << endl;
     }
 }
@@ -329,7 +383,7 @@ TaskQueue::TaskQueue(vector<pair<int, int>> orders, Robot robot) {
   * @brief Perform all the tasks in the queue.
   * @param graph The graph representing the delivery area.
   */
-void TaskQueue::PerformTasks(Graph graph) {
+void TaskQueue::PerformTasks(Graph *graph) {
     for (int i=0; i<_queue.size(); i++) {
         cout << "Task " << i+1 << ":" <<endl;
         _queue[i].DisplayPath(graph);
@@ -428,7 +482,7 @@ int main ()
 {
     const int num_nodes = 11; // 10 houses + 1 store
     const double connectivity = 0.1;
-    const int num_days = 4;
+    const int num_days = 40;
     const Robot robot(101, 3);
 
     vector<vector<double>> dist_mat = generate_dist_matrix(num_nodes, connectivity, 0);
@@ -443,7 +497,7 @@ int main ()
         cout << "Day " << i << ":" << endl;
         graph.UpdateOrders(i);
         TaskQueue taskQueue(graph.GetOrderList(), robot);
-        taskQueue.PerformTasks(graph);
+        taskQueue.PerformTasks(&graph);
     }
 
     return 0;

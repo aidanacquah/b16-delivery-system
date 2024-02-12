@@ -23,7 +23,7 @@ public:
     vector<pair<int,int>> GetDeliveryOrders() const;
 
     /// Display the path taken by the robot in completing tasks.
-    void DisplayPath(Graph graph);
+    void DisplayPath(Graph *graph);
 
 private:
     /// The ID of the robot.
@@ -60,7 +60,7 @@ public:
     TaskQueue(vector<pair<int, int>> orders, Robot robot);
 
     /// Perform the listed tasks and output to console. 
-    void PerformTasks(Graph graph);
+    void PerformTasks(Graph *graph);
 
 private:
     /// List of tasks to carry out.
