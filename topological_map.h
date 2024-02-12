@@ -3,6 +3,7 @@
  * @brief Defines classes and functions for a topological map.
  */
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -65,7 +66,13 @@ public:
     /// Returns a list of pairs of node ids and number of orders for each node in the graph.
     vector<pair<int, int>> GetOrderList();
 
+    /// Returns the shortest path between the two nodes specified by the index
+    string GetShortestPathString(int nodeAId, int nodeBId);
+
 private:
     /// A list of nodes in the graph.
     vector<Node> _nodes;
+    
+    vector<vector<string>> _shortest_paths;
+    vector<vector<double>> _shortest_paths_dist;
 };
