@@ -6,6 +6,8 @@
 #include <cstdio>
 #include <limits>
 #include <algorithm>
+#include <iostream>
+#include <fstream>
 #include "task_queue.h"
 
 using namespace std;
@@ -431,6 +433,9 @@ int main ()
     const int num_days = 4;
     const Robot robot(101, 3);
 
+    //Creates an output file to save the taskqueue in called taskqueue.txt
+    ofstream outputFile("taskqueue.txt");
+    
     vector<vector<double>> dist_mat = generate_dist_matrix(num_nodes, connectivity, 0);
     cout << dist_mat;
 
@@ -439,12 +444,20 @@ int main ()
     // Example path
     double u = graph.ShortestPath(1, 2, 2);
 
+    //Change cout to print to the output file instead
+    streambuf *original_cout = cout.rdbuf();
+    cout.rdbuf(outputFile.rdbuf());
+
     for (int i=1; i<num_days+1; i++) {
         cout << "Day " << i << ":" << endl;
         graph.UpdateOrders(i);
         TaskQueue taskQueue(graph.GetOrderList(), robot);
         taskQueue.PerformTasks(graph);
     }
+    //Set cout back to original settings and close output file
+    cout.rdbuf(original_cout);
+    outputFile.close();
+
 
     return 0;
 }
