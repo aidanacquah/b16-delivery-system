@@ -95,7 +95,9 @@ Graph::Graph(vector<vector<double>> dist_matrix) {
 
     _nodes = nodes;
 }
-
+Graph::Graph(Graph &graph){
+    _nodes = graph._nodes; // copy constructor, order numbers can then be changed for new round of deliveries.
+}
 /**
  * @brief Returns the number of nodes in the graph.
  *
