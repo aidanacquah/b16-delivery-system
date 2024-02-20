@@ -336,6 +336,9 @@ void TaskQueue::PerformTasks(Graph graph) {
     }
     _queue.clear();
 }
+ vector<Task> TaskQueue::getQueue(){
+    return _queue;
+ }
 
 /**
  * @brief Generates a weighted adjacency matrix based on the given parameters.

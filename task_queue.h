@@ -61,8 +61,10 @@ public:
 
     /// Perform the listed tasks and output to console. 
     void PerformTasks(Graph graph);
+    vector<Task> getQueue();
 
 private:
     /// List of tasks to carry out.
     vector<Task> _queue;
 };
+
