@@ -95,7 +95,9 @@ Graph::Graph(vector<vector<double>> dist_matrix) {
 
     _nodes = nodes;
 }
-
+Graph::Graph(Graph &graph){
+    _nodes = graph._nodes; // copy constructor, order numbers can then be changed for new round of deliveries.
+}
 /**
  * @brief Returns the number of nodes in the graph.
  *
@@ -336,6 +338,9 @@ void TaskQueue::PerformTasks(Graph graph) {
     }
     _queue.clear();
 }
+ vector<Task> TaskQueue::getQueue(){
+    return _queue;
+ }
 
 /**
  * @brief Generates a weighted adjacency matrix based on the given parameters.

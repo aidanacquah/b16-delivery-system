@@ -48,7 +48,7 @@ public:
     /// Constructor.
     /// \param dist_matrix A distance matrix representing the map.
     Graph(vector<vector<double>> dist_matrix);
-
+    Graph(Graph &g);
     /// Computes the shortest path between two nodes using Dijkstra algorithm.
     /// \param nodeIndex1 The index of the first node.
     /// \param nodeIndex2 The index of the second node.
@@ -64,6 +64,7 @@ public:
 
     /// Returns a list of pairs of node ids and number of orders for each node in the graph.
     vector<pair<int, int>> GetOrderList();
+    
 
 private:
     /// A list of nodes in the graph.
